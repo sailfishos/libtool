@@ -46,7 +46,6 @@ and GNU Automake).
 Summary:    Runtime libraries for GNU Libtool Dynamic Module Loader
 License:    LGPLv2+
 Group:      System/Libraries
-Requires:   %{name} = %{version}-%{release}
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
 Provides:   %{name}-libs = %{version}-%{release}
@@ -65,7 +64,6 @@ the rest of the GNU Autotools (including GNU Autoconf and GNU Automake).
 Summary:    Tools needed for development using the GNU Libtool Dynamic Module Loader
 License:    LGPLv2+
 Group:      Development/Libraries
-Requires:   %{name} = %{version}-%{release}
 Requires:   %{name}-ltdl = %{version}-%{release}
 
 %description ltdl-devel

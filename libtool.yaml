@@ -54,6 +54,7 @@ SubPackages:
           the rest of the GNU Autotools (including GNU Autoconf and GNU Automake).
       Provides:
           - "%{name}-libs = %{version}-%{release}"
+      AutoDepend: False
 
     - Name: ltdl-devel
       Summary: Tools needed for development using the GNU Libtool Dynamic Module Loader
@@ -62,4 +63,5 @@ SubPackages:
       Description: Static libraries and header files for development with ltdl.
       Requires:
           - "%{name}-ltdl = %{version}-%{release}"
+      AutoDepend: False
 
