@@ -1,5 +1,5 @@
 * Thu Aug 04 2016 Igor Zhbanov <igor.zhbanov@jolla.com> - 2.4.6
-- Updated to 2.4.6
+- Updated to 2.4.6. Fixes MER#1585
 
 * Fri Dec 16 2011 Marko Saukko <marko.saukko@cbyercom.com> - 2.4.2
 - Removed libtool dependency from libtool-ltdl packages that were introduced
