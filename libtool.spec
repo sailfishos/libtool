@@ -11,8 +11,6 @@ Patch0:     no-host-name.patch
 Requires:   autoconf >= 2.58
 Requires:   automake >= 1.4
 Requires:   sed
-Requires(preun): /sbin/install-info
-Requires(post): /sbin/install-info
 BuildRequires:  autoconf >= 2.59
 BuildRequires:  automake >= 1.9.2
 BuildRequires:  help2man
@@ -59,6 +57,16 @@ Requires:   %{name}-ltdl = %{version}-%{release}
 %description ltdl-devel
 Static libraries and header files for development with ltdl.
 
+%package doc
+Summary:   Documentation for %{name}
+Group:     Documentation
+Requires:  %{name} = %{version}-%{release}
+Requires(post): /sbin/install-info
+Requires(postun): /sbin/install-info
+
+%description doc
+Man and info pages for %{name}.
+
 %prep
 %setup -q -n %{name}-%{version}
 
@@ -83,16 +91,22 @@ make install DESTDIR=$RPM_BUILD_ROOT
 rm -f %{buildroot}%{_infodir}/dir
 rm -f %{buildroot}%{_libdir}/libltdl.la  %{buildroot}%{_libdir}/libltdl.a
 
+mkdir -p %{buildroot}%{_docdir}/%{name}-%{version}/libltdl
+install -m0644 -t %{buildroot}%{_docdir}/%{name}-%{version} \
+        AUTHORS ChangeLog* NEWS README THANKS TODO
+install -m0644 libltdl/README \
+        %{buildroot}%{_docdir}/%{name}-%{version}/libltdl
+
 %check
 #make check VERBOSE=yes > make_check.log 2>&1 || (cat make_check.log && false)
 
-%preun
+%preun doc
 if [ "$1" = 0 ]; then
-/sbin/install-info --delete %{_infodir}/libtool.info.gz %{_infodir}/dir || :
+/sbin/install-info --delete %{_infodir}/%{name}.info.gz %{_infodir}/dir || :
 fi
 
-%post
-/sbin/install-info %{_infodir}/libtool.info.gz %{_infodir}/dir || :
+%post doc
+/sbin/install-info %{_infodir}/%{name}.info.gz %{_infodir}/dir || :
 
 %post ltdl -p /sbin/ldconfig
 
@@ -100,23 +114,29 @@ fi
 
 %files
 %defattr(-,root,root,-)
-%doc AUTHORS COPYING NEWS README THANKS TODO ChangeLog*
-%{_infodir}/libtool.info*.gz
-%{_mandir}/man1/libtool*.gz
-%{_bindir}/libtool
-%{_bindir}/libtoolize
+%license COPYING
+%{_bindir}/%{name}
+%{_bindir}/%{name}ize
 %{_datadir}/aclocal/*.m4
-%exclude %{_datadir}/libtool/libltdl
-%{_datadir}/libtool
+%exclude %{_datadir}/%{name}/libltdl
+%exclude %{_datadir}/%{name}/COPYING.LIB
+%exclude %{_datadir}/%{name}/README
+%{_datadir}/%{name}
 
 %files ltdl
 %defattr(-,root,root,-)
-%doc libltdl/COPYING.LIB libltdl/README
+%license libltdl/COPYING.LIB
 %{_libdir}/libltdl.so.*
 
 %files ltdl-devel
 %defattr(-,root,root,-)
-%{_datadir}/libtool/libltdl
+%{_datadir}/%{name}/libltdl
 %{_libdir}/libltdl.so
 %{_includedir}/ltdl.h
 %{_includedir}/libltdl
+
+%files doc
+%defattr(-,root,root,-)
+%{_infodir}/%{name}.*
+%{_mandir}/man1/%{name}*
+%{_docdir}/%{name}-%{version}

@@ -1,3 +1,6 @@
+* Thu Jan 17 2019 Tomi Leppänen <tomi.leppanen@jolla.com> - 2.4.6+git1
+- [packaging] Add libtool-doc subpackage. Contributes to JB#24119
+
 * Thu Aug 04 2016 Igor Zhbanov <igor.zhbanov@jolla.com> - 2.4.6
 - Updated to 2.4.6. Fixes MER#1585
 
@@ -12,7 +15,7 @@
 * Thu Apr 07 2011 Junfeng Dong <junfeng.dong@intel.com> - 2.4
 - Update to 2.4.
 
-* Thu Mar 30 2011 Junfeng Dong <junfeng.dong@intel.com> - 2.2.6b
+* Wed Mar 30 2011 Junfeng Dong <junfeng.dong@intel.com> - 2.2.6b
 - Fix BMC14847: lots of warning on AC_LANG_CONFTEST.
 
 * Thu Feb 04 2010 Anas Nashif <anas.nashif@intel.com> - 2.2.6b
