@@ -1,3 +1,6 @@
+* Wed Apr 03 2019 Aapi Hämäläinen <aapi.hamalainen@jollamobile.com> - 2.4.6-3
+- [libtool] Run autoreconf. Contributes to JB#45154
+
 * Thu Jan 17 2019 Tomi Leppänen <tomi.leppanen@jolla.com> - 2.4.6-2
 - [packaging] Add libtool-doc subpackage. Contributes to JB#24119
 
