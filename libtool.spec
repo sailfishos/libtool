@@ -2,7 +2,6 @@ Name:       libtool
 Summary:    The GNU Portable Library Tool
 Version:    2.4.6
 Release:    3
-Group:      Development/Tools
 License:    GPLv2+ and LGPLv2+ and GFDL
 URL:        http://www.gnu.org/software/libtool/
 Source0:    http://ftp.gnu.org/gnu/libtool/libtool-%{version}.tar.xz
@@ -14,7 +13,6 @@ Requires:   sed
 BuildRequires:  autoconf >= 2.59
 BuildRequires:  automake >= 1.9.2
 BuildRequires:  help2man
-BuildRequires:  texinfo
 
 %description
 GNU Libtool is a set of shell scripts which automatically configure UNIX and
@@ -34,7 +32,6 @@ and GNU Automake).
 %package ltdl
 Summary:    Runtime libraries for GNU Libtool Dynamic Module Loader
 License:    LGPLv2+
-Group:      System/Libraries
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
 Provides:   %{name}-libs = %{version}-%{release}
@@ -51,7 +48,6 @@ the rest of the GNU Autotools (including GNU Autoconf and GNU Automake).
 %package ltdl-devel
 Summary:    Tools needed for development using the GNU Libtool Dynamic Module Loader
 License:    LGPLv2+
-Group:      Development/Libraries
 Requires:   %{name}-ltdl = %{version}-%{release}
 
 %description ltdl-devel
@@ -59,7 +55,6 @@ Static libraries and header files for development with ltdl.
 
 %package doc
 Summary:   Documentation for %{name}
-Group:     Documentation
 Requires:  %{name} = %{version}-%{release}
 Requires(post): /sbin/install-info
 Requires(postun): /sbin/install-info
