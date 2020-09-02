@@ -1,3 +1,6 @@
+* Tue Jun 23 2020 Marko Lemmetty <marko.lemmetty@jollamobile.com> - 2.4.6-4
+- [libtool] Drop texinfo from build requires. JB#48964
+
 * Wed Apr 03 2019 Aapi Hämäläinen <aapi.hamalainen@jollamobile.com> - 2.4.6-3
 - [libtool] Run autoreconf. Contributes to JB#45154
 
