@@ -1,18 +1,18 @@
 Name:       libtool
 Summary:    The GNU Portable Library Tool
-Version:    2.4.6
-Release:    4
+Version:    2.4.7
+Release:    1
 License:    GPLv2+ and LGPLv2+ and GFDL
-URL:        http://www.gnu.org/software/libtool/
-Source0:    http://ftp.gnu.org/gnu/libtool/libtool-%{version}.tar.xz
+URL:        https://github.com/sailfishos/libtool
+Source0:    %{name}-%{version}.tar.xz
 # This patch is needed for reproducible builds on any host.
 Patch0:     no-host-name.patch
+Patch1:     libtool-nodocs.patch
 Requires:   autoconf >= 2.58
 Requires:   automake >= 1.4
 Requires:   sed
 BuildRequires:  autoconf >= 2.59
 BuildRequires:  automake >= 1.9.2
-BuildRequires:  help2man
 
 %description
 GNU Libtool is a set of shell scripts which automatically configure UNIX and
@@ -63,27 +63,17 @@ Requires(postun): /sbin/install-info
 Man and info pages for %{name}.
 
 %prep
-%setup -q -n %{name}-%{version}
-
-# no-host-name.patch
-%patch0 -p2
+%autosetup -p1 -n %{name}-%{version}
 
 %build
-export CC=gcc
-export CXX=g++
-export F77=gfortran
-export CFLAGS="$RPM_OPT_FLAGS -fPIC"
 autoreconf -v
-# don't conflict with libtool-1.5, use own directory:
-sed -e 's/pkgdatadir="\\${datadir}\/\$PACKAGE"/pkgdatadir="\\${datadir}\/\${PACKAGE}"/' configure > configure.tmp; mv -f configure.tmp configure; chmod a+x configure
-./configure --prefix=%{_prefix} --exec-prefix=%{_prefix} --bindir=%{_bindir} --sbindir=%{_sbindir} --sysconfdir=%{_sysconfdir} --datadir=%{_datadir} --includedir=%{_includedir} --libdir=%{_libdir} --libexecdir=%{_libexecdir} --localstatedir=%{_localstatedir} --mandir=%{_mandir} --infodir=%{_infodir}
-# build not smp safe:
-make #%{?_smp_mflags}
+
+%configure
+
+%make_build
 
 %install
-rm -rf %{buildroot}
-
-make install DESTDIR=$RPM_BUILD_ROOT
+%make_install
 rm -f %{buildroot}%{_infodir}/dir
 rm -f %{buildroot}%{_libdir}/libltdl.la  %{buildroot}%{_libdir}/libltdl.a
 
@@ -92,9 +82,6 @@ install -m0644 -t %{buildroot}%{_docdir}/%{name}-%{version} \
         AUTHORS ChangeLog* NEWS README THANKS TODO
 install -m0644 libltdl/README \
         %{buildroot}%{_docdir}/%{name}-%{version}/libltdl
-
-%check
-#make check VERBOSE=yes > make_check.log 2>&1 || (cat make_check.log && false)
 
 %preun doc
 if [ "$1" = 0 ]; then
